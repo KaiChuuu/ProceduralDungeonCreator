@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BSPGenerator : MonoBehaviour
 {
     BSPNode root;
+    List<Vertex> points;
 
     public void CreatePartitions(int width, int length, int totalRooms, int minimumSizeRoom)
     {
@@ -18,6 +18,33 @@ public class BSPGenerator : MonoBehaviour
             Debug.Log("Couldnt generate total requested rooms within parameters. Remaining rooms, " + remainingRooms);
         } 
     }
+
+    public List<Vertex> CreatePoints()
+    {
+        points = new List<Vertex>();
+
+        if (root != null)
+        {
+            int count = 0;
+            GetLeafPartitions(root, count);
+        }
+
+        return points;
+    }
+
+    //Display vertex points
+    private void OnDrawGizmos()
+    {
+        if (points != null)
+        {
+            foreach(var point in points)
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawSphere(new Vector3(point.x, 3, point.y), 3);
+            }
+        }
+    }
+    
 
     /*
      * Randomly creates partitions within the space.
@@ -91,6 +118,27 @@ public class BSPGenerator : MonoBehaviour
         }
 
         return totalRooms;
+    }
+
+    public void GetLeafPartitions(BSPNode node, int count)
+    {
+        if (node.left == null && node.right == null)
+        {
+            count++;
+            int centerX = node.startX + (int) node.bounds.width / 2;
+            int centerY = node.startZ + (int) node.bounds.height / 2;
+            points.Add(new Vertex(centerX, centerY, count));
+            return;
+        }
+
+       if(node.left != null)
+       {
+            GetLeafPartitions(node.left, count);
+       }
+       if(node.right != null)
+       {
+            GetLeafPartitions(node.right, count);
+       }
     }
 }
 

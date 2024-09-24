@@ -36,7 +36,9 @@ public class ProceduralDungeonCreator : MonoBehaviour
     {
         GetComponent<BSPGenerator>().CreatePartitions(width, length, totalRooms, minimumSizeRoom);
 
-        //GetComponent<DelaunayGraphGenerator>().GenerateDelaunayTriangulationGraph();  
+        List<Vertex> points = GetComponent<BSPGenerator>().CreatePoints();
+
+        GetComponent<DelaunayGraphGenerator>().GenerateDelaunayTriangulationGraph(points);
     }
 
     private void OnDrawGizmosSelected()
