@@ -38,7 +38,9 @@ public class ProceduralDungeonCreator : MonoBehaviour
 
         List<Vertex> points = GetComponent<BSPGenerator>().CreatePoints();
 
-        GetComponent<DelaunayGraphGenerator>().GenerateDelaunayTriangulationGraph(points);
+        List<Triangle> triangles = GetComponent<DelaunayGraphGenerator>().GenerateDelaunayTriangulationGraph(points);
+
+        GetComponent<MSTGenerator>().GenerateMinimumSpanningTree(triangles);
     }
 
     private void OnDrawGizmosSelected()

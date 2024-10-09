@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 1097367918}
   - component: {fileID: 1097367920}
   - component: {fileID: 1097367921}
+  - component: {fileID: 1097367922}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -342,8 +343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length: 250
   width: 250
-  totalRooms: 10
-  minimumSizeRoom: 25
+  totalRooms: 15
+  minimumSizeRoom: 15
   startingRoom: {fileID: 0}
   generalRooms: []
   specialRooms: []
@@ -385,6 +386,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa1d268b77d905443b49b0d96a63ed17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1097367922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097367917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71bcd2ddba1126940a0e46f2321368a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

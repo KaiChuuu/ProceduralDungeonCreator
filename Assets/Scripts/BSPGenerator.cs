@@ -25,8 +25,7 @@ public class BSPGenerator : MonoBehaviour
 
         if (root != null)
         {
-            int count = 0;
-            GetLeafPartitions(root, count);
+            GetLeafPartitions(root);
         }
 
         return points;
@@ -120,24 +119,23 @@ public class BSPGenerator : MonoBehaviour
         return totalRooms;
     }
 
-    public void GetLeafPartitions(BSPNode node, int count)
+    public void GetLeafPartitions(BSPNode node)
     {
         if (node.left == null && node.right == null)
         {
-            count++;
             int centerX = node.startX + (int) node.bounds.width / 2;
             int centerY = node.startZ + (int) node.bounds.height / 2;
-            points.Add(new Vertex(centerX, centerY, count));
+            points.Add(new Vertex(centerX, centerY));
             return;
         }
 
        if(node.left != null)
        {
-            GetLeafPartitions(node.left, count);
+            GetLeafPartitions(node.left);
        }
        if(node.right != null)
        {
-            GetLeafPartitions(node.right, count);
+            GetLeafPartitions(node.right);
        }
     }
 }

@@ -12,7 +12,7 @@ public class DelaunayGraphGenerator : MonoBehaviour
     List<Triangle> triangles;
     Triangle superTriangle;
 
-    public void GenerateDelaunayTriangulationGraph(List<Vertex> points)
+    public List<Triangle> GenerateDelaunayTriangulationGraph(List<Vertex> points)
     {
         //Create triangle encapsulating all points
         superTriangle = CreateSuperTriangle(points);
@@ -28,8 +28,14 @@ public class DelaunayGraphGenerator : MonoBehaviour
         
         //Remove the outer super triangle
         RemoveSuperTriangle(superTriangle);
+
+        return triangles;
     }
 
+    /*
+     Display Delaunay Graph
+     */
+    /*
     private void OnDrawGizmos()
     {
         if(superTriangle != null)
@@ -53,6 +59,7 @@ public class DelaunayGraphGenerator : MonoBehaviour
             }
         }
     }
+    */
 
     void AddPoint(Vertex point)
     {
@@ -92,9 +99,9 @@ public class DelaunayGraphGenerator : MonoBehaviour
         float deltaMax = Mathf.Max(dx, dy) * 10;
 
         //Create super triangle vertices
-        Vertex v1 = new Vertex(minX - deltaMax, minY - deltaMax, -1);
-        Vertex v2 = new Vertex(minX + 2 * deltaMax, minY + deltaMax, -1);
-        Vertex v3 = new Vertex(minX - deltaMax, minY + 2 * deltaMax, -1);
+        Vertex v1 = new Vertex(minX - deltaMax, minY - deltaMax);
+        Vertex v2 = new Vertex(minX + 2 * deltaMax, minY + deltaMax);
+        Vertex v3 = new Vertex(minX - deltaMax, minY + 2 * deltaMax);
 
         return new Triangle(v1, v2, v3);
     }
@@ -134,15 +141,13 @@ public class DelaunayGraphGenerator : MonoBehaviour
 
 public class Vertex
 {
-    public int id;
     public float x;
     public float y;
 
-    public Vertex(float x, float y, int id)
+    public Vertex(float x, float y)
     {
         this.x = x;
         this.y = y;
-        this.id = id;
     }
 
     public override bool Equals(object obj)
@@ -166,11 +171,15 @@ public class Edge
 {
     public Vertex v1;
     public Vertex v2;
+    public float weight = 0;
 
     public Edge(Vertex v1, Vertex v2)
     {
         this.v1 = v1;
         this.v2 = v2;
+
+        //Generate Edge weights based on Euclidean Distance, distance between two points.
+        weight = Mathf.Sqrt(Mathf.Pow(v2.x - v1.x, 2) + Mathf.Pow(v2.y - v1.y, 2));
     }
 
     public override bool Equals(object obj)

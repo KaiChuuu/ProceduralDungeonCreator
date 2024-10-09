@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0] - 2024-10-09
+
+### Added
+
+- Generated Minimum Spanning Tree through Delaunay Triangulation Graph.
+  - Weights are created through Euclidean distance between two vertices.
+
 ## [0.2.0] - 2024-09-24
 
 ### Added
